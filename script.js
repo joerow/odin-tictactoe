@@ -1,40 +1,51 @@
 //module
 const gameboard = (() => {
-  let grid = ["X", "0", "X", "X", "X", "X", "X", "X", "X"];
+  let dummygrid = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
+  let blankgrid = ["", "", "", "", "", "", "", "", ""];
   return {
-    grid,
+    dummygrid,
+    blankgrid,
   };
 })();
 
 //module
 const displaycontroller = (() => {
-  let grid = gameboard.grid;
-
-  function fillgrid(grid) {
-    const gameboard_div = document.querySelectorAll(".gameboard-grid");
+  function drawgrid(grid) {
     gameboard_div.forEach((element) => {
-      element.textContent = gameboard.grid[element.id];
+      element.textContent = grid[element.id];
     });
   }
   return {
-    grid,
-    fillgrid,
+    drawgrid,
   };
 })();
 
-//factory function
-const Player = (name) => {
-  const sayName = () => console.log(`my name is ${name}`);
-  return { sayName };
-};
+const gameboard_div = document.querySelectorAll(".gameboard-grid");
 
-const player1 = Player("Player 1");
-player1.sayName();
+displaycontroller.drawgrid(gameboard.dummygrid);
 
-const player2 = Player("Player 2");
-player2.sayName();
+gameboard_div.forEach((element) => {
+  element.onclick = function () {
+    element.textContent = "hi";
+  };
+});
 
-displaycontroller.fillgrid(gameboard.grid);
+// const myTimeout = setTimeout(blankgrid, 500);
+// function blankgrid() {
+//   displaycontroller.fillgrid(gameboard.blankgrid);
+// }
+// //factory function
+// const Player = (name) => {
+//   const sayName = () => console.log(`my name is ${name}`);
+//   return { sayName };
+// };
+
+// const player1 = Player("Player 1");
+// player1.sayName();
+
+// const player2 = Player("Player 2");
+// player2.sayName();
+
 // const Nerd = (name) => {
 //   // simply create a person and pull out the sayName function with destructuring assignment syntax!
 //   const {sayName} = Person(name);
