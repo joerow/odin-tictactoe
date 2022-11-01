@@ -1,8 +1,8 @@
 .container {
   display: grid;
-  grid-template: 5rem 2rem repeat(3, minmax(auto, 200px)) / repeat(
+  grid-template: 5rem 2rem repeat(3, clamp(50px, 30vw, 200px)) / repeat(
       3,
-      minmax(50px, 200px)
+      clamp(50px, 30vw, 200px)
     );
   justify-content: center;
   align-items: center;
@@ -18,7 +18,13 @@
 
 button {
   height: fit-content;
-  width: max-content;
+  width: clamp(50px, 20vw, 150px);
   align-self: center;
   justify-self: center;
+}
+
+.gameboard-grid {
+  justify-self: center;
+  align-content: center;
+  font-size: clamp(50px, 30vw, 150px);
 }
