@@ -1,1 +1,24 @@
+.container {
+  display: grid;
+  grid-template: 5rem 2rem repeat(3, minmax(auto, 200px)) / repeat(
+      3,
+      minmax(50px, 200px)
+    );
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
 
+#title {
+  display: grid;
+  grid-column: 1 / span 3;
+  align-self: center;
+  justify-self: center;
+}
+
+button {
+  height: fit-content;
+  width: max-content;
+  align-self: center;
+  justify-self: center;
+}
