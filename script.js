@@ -1,6 +1,6 @@
 //module
 const gameboard = (() => {
-  let grid = ["X", "X", "X", "X", "X", "X", "X", "X", "X"];
+  let grid = ["X", "0", "X", "X", "X", "X", "X", "X", "X"];
   return {
     grid,
   };
@@ -8,9 +8,17 @@ const gameboard = (() => {
 
 //module
 const displaycontroller = (() => {
-  let grid = [{ number: 1, name: "string" }];
+  let grid = gameboard.grid;
+
+  function fillgrid(grid) {
+    const gameboard_div = document.querySelectorAll(".gameboard-grid");
+    gameboard_div.forEach((element) => {
+      element.textContent = gameboard.grid[element.id];
+    });
+  }
   return {
     grid,
+    fillgrid,
   };
 })();
 
@@ -26,8 +34,7 @@ player1.sayName();
 const player2 = Player("Player 2");
 player2.sayName();
 
-console.log(gameboard.grid);
-
+displaycontroller.fillgrid(gameboard.grid);
 // const Nerd = (name) => {
 //   // simply create a person and pull out the sayName function with destructuring assignment syntax!
 //   const {sayName} = Person(name);
