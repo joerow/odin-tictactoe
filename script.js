@@ -24,6 +24,7 @@ const gameboard_div = document.querySelectorAll(".gameboard-grid");
 const left_button = document.querySelector("#left-button");
 left_button.onclick = function () {
   displaycontroller.drawgrid(gameboard.blankgrid);
+  left_button.textContent = "Reset";
 };
 
 displaycontroller.drawgrid(gameboard.dummygrid);
