@@ -1,6 +1,6 @@
 //module
 const gameboard = (() => {
-  let dummygrid = ["X", "O", "X", "O", "X", "O", "X", "O", "X"];
+  let dummygrid = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
   let blankgrid = ["", "", "", "", "", "", "", "", ""];
   return {
     dummygrid,
@@ -21,6 +21,10 @@ const displaycontroller = (() => {
 })();
 
 const gameboard_div = document.querySelectorAll(".gameboard-grid");
+const left_button = document.querySelector("#left-button");
+left_button.onclick = function () {
+  displaycontroller.drawgrid(gameboard.blankgrid);
+};
 
 displaycontroller.drawgrid(gameboard.dummygrid);
 
