@@ -12,7 +12,7 @@ const gameboard = (() => {
 const displaycontroller = (() => {
   function drawgrid(grid) {
     gameboard_div.forEach((element) => {
-      element.textContent = grid[element.id];
+      element.textContent = grid[element.dataset.grid];
     });
   }
   return {

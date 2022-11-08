@@ -47,3 +47,46 @@ button {
   align-self: center;
   font-size: clamp(50px, 30vw, 150px);
 }
+
+/* gameboard styling */
+/* gameboard styling LEFT col*/
+.gameboard-grid[data-grid="0"] {
+  border-right: 1px solid red;
+}
+
+.gameboard-grid[data-grid="3"] {
+  border-right: 1px solid red;
+}
+
+.gameboard-grid[data-grid="6"] {
+  border-right: 1px solid red;
+}
+
+/* gameboard styling RIGHT col*/
+.gameboard-grid[data-grid="2"] {
+  border-left: 1px solid red;
+}
+
+.gameboard-grid[data-grid="5"] {
+  border-left: 1px solid red;
+}
+
+.gameboard-grid[data-grid="8"] {
+  border-left: 1px solid red;
+}
+
+/* gameboard styling rows*/
+.gameboard-grid[data-grid="3"] {
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+}
+
+.gameboard-grid[data-grid="4"] {
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+}
+
+.gameboard-grid[data-grid="5"] {
+  border-top: 1px solid red;
+  border-bottom: 1px solid red;
+}
