@@ -1,39 +1,76 @@
-//module
+//module to control grid state
 const gameboard = (() => {
   let dummygrid = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
-  let blankgrid = ["", "", "", "", "", "", "", "", ""];
+  let currentgrid = ["", "", "", "", "", "", "", "", ""];
+  function update(playerSymbol, index) {
+    gameboard.currentgrid[index] = playerSymbol;
+  }
+
+  function resetgrid() {
+    this.currentgrid = ["", "", "", "", "", "", "", "", ""];
+  }
+
   return {
     dummygrid,
-    blankgrid,
+    currentgrid,
+    update,
+    resetgrid,
   };
 })();
 
-//module
+/* click grid detection */
+const gameboard_div = document.querySelectorAll(".gameboard-grid");
+
+//module to control the page
+const activeStatus = document.getElementById("#game_status");
+const currentState = document.getElementById("#state");
 const displaycontroller = (() => {
+  function activeGrid() {
+    gameboard_div.forEach((element) => {
+      element.onclick = function () {
+        //element.textContent = element.dataset.grid;
+        gameboard.update(element.dataset.grid, element.dataset.grid);
+        displaycontroller.drawgrid(gameboard.currentgrid);
+      };
+    });
+  }
+
   function drawgrid(grid) {
     gameboard_div.forEach((element) => {
       element.textContent = grid[element.dataset.grid];
     });
   }
+
   return {
     drawgrid,
+    activeGrid,
+    activeStatus,
+    currentState,
   };
 })();
 
-const gameboard_div = document.querySelectorAll(".gameboard-grid");
+/* buttons */
 const left_button = document.querySelector("#left-button");
 left_button.onclick = function () {
-  displaycontroller.drawgrid(gameboard.blankgrid);
+  gameboard.resetgrid();
+  displaycontroller.activeGrid();
+  displaycontroller.drawgrid(gameboard.currentgrid);
   left_button.textContent = "Reset";
 };
 
+/* Draw the landing grid */
 displaycontroller.drawgrid(gameboard.dummygrid);
 
-gameboard_div.forEach((element) => {
-  element.onclick = function () {
-    element.textContent = "hi";
-  };
-});
+/* factory to make players */
+const Player = (name, playerSymbol) => {
+  const getSymbol = () => playerSymbol;
+  const getName = () => name;
+  return { getSymbol, getName };
+};
+const player1 = Player("Player 1", "X");
+const player2 = Player("Player 2", "O");
+
+/*  */
 
 // const myTimeout = setTimeout(blankgrid, 500);
 // function blankgrid() {

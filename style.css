@@ -16,7 +16,11 @@
   justify-self: center;
 }
 
-#game_status {
+.invisible {
+  visibility: visible;
+}
+
+.game_status {
   display: flex;
   grid-column: 1 / span 3;
   align-content: center;
@@ -33,6 +37,14 @@ button {
   width: clamp(50px, 20vw, 150px);
   align-self: center;
   justify-self: center;
+}
+
+#middle-button {
+  visibility: hidden;
+}
+
+#right-button {
+  visibility: hidden;
 }
 
 .gameboard-grid {
