@@ -20,6 +20,15 @@ const gameboard = (() => {
     }
   }
 
+  function check() {
+    if (this.currentgrid.includes("")) {
+      console.log("still playable");
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   return {
     dummygrid,
     currentgrid,
@@ -27,6 +36,7 @@ const gameboard = (() => {
     update,
     resetgrid,
     togglePlayer,
+    check,
   };
 })();
 
@@ -47,8 +57,12 @@ const displaycontroller = (() => {
             element.dataset.grid
           );
           displaycontroller.drawgrid(gameboard.currentgrid);
-          gameboard.togglePlayer();
-          setPlayerPrompt();
+          if (gameboard.check()) {
+            gameboard.togglePlayer();
+            setPlayerPrompt();
+          } else {
+            setPlayerPrompt("Game Over");
+          }
         }
       };
     });
@@ -67,9 +81,13 @@ const displaycontroller = (() => {
     });
   }
 
-  function setPlayerPrompt() {
+  function setPlayerPrompt(prompt) {
     const element = document.getElementById("player-prompt");
-    element.textContent = gameboard.currentPlayer.getName();
+    if (prompt === undefined) {
+      element.textContent = gameboard.currentPlayer.getName();
+    } else {
+      element.textContent = prompt;
+    }
   }
 
   return {
