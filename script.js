@@ -28,7 +28,7 @@ const gameboard = (() => {
 
     wins are:
     036 147 258 012 345 678 048 642
-
+TODO win conditions
  */
   function checkWon() {
     if (
