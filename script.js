@@ -20,12 +20,76 @@ const gameboard = (() => {
     }
   }
 
-  function check() {
-    if (this.currentgrid.includes("")) {
-      console.log("still playable");
+  //check win conditions
+  /*     
+    0 1 2
+    3 4 5
+    6 7 8
+
+    wins are:
+    036 147 258 012 345 678 048 642
+
+ */
+  function checkWon() {
+    if (
+      gameboard.currentgrid[0] === gameboard.currentgrid[3] &&
+      gameboard.currentgrid[0] === gameboard.currentgrid[6]
+    ) {
+      return true;
+    } else if (
+      gameboard.currentgrid[1] === gameboard.currentgrid[4] &&
+      gameboard.currentgrid[7]
+    ) {
+      return true;
+    } else if (
+      gameboard.currentgrid[2] === gameboard.currentgrid[5] &&
+      gameboard.currentgrid[8]
+    ) {
+      return true;
+    } else if (
+      gameboard.currentgrid[0] === gameboard.currentgrid[1] &&
+      gameboard.currentgrid[2]
+    ) {
+      return true;
+    } else if (
+      gameboard.currentgrid[3] === gameboard.currentgrid[4] &&
+      gameboard.currentgrid[5]
+    ) {
+      return true;
+    } else if (
+      gameboard.currentgrid[6] === gameboard.currentgrid[7] &&
+      gameboard.currentgrid[8]
+    ) {
+      return true;
+    } else if (
+      gameboard.currentgrid[0] === gameboard.currentgrid[4] &&
+      gameboard.currentgrid[8]
+    ) {
+      return true;
+    } else if (
+      gameboard.currentgrid[6] === gameboard.currentgrid[4] &&
+      gameboard.currentgrid[2]
+    ) {
       return true;
     } else {
       return false;
+    }
+  }
+  function check() {
+    if (checkWon() === true) {
+      return "winner";
+    } else {
+      return checkPlayable();
+    }
+  }
+
+  //check if there are spaces left
+  function checkPlayable() {
+    if (gameboard.currentgrid.includes("")) {
+      console.log("still playable");
+      return "playable";
+    } else {
+      return;
     }
   }
 
@@ -37,6 +101,8 @@ const gameboard = (() => {
     resetgrid,
     togglePlayer,
     check,
+    checkPlayable,
+    checkWon,
   };
 })();
 
@@ -57,11 +123,13 @@ const displaycontroller = (() => {
             element.dataset.grid
           );
           displaycontroller.drawgrid(gameboard.currentgrid);
-          if (gameboard.check()) {
+          if (gameboard.check() === "playable") {
             gameboard.togglePlayer();
             setPlayerPrompt();
+          } else if (gameboard.check() === "winner") {
+            setPlayerPrompt(gameboard.currentPlayer.getName() + " wins");
           } else {
-            setPlayerPrompt("Game Over");
+            setPlayerPrompt("Game Over - board full");
           }
         }
       };
@@ -82,11 +150,17 @@ const displaycontroller = (() => {
   }
 
   function setPlayerPrompt(prompt) {
-    const element = document.getElementById("player-prompt");
+    let playerprompt = document.getElementById("player-prompt");
+    let status = document.getElementById("status");
     if (prompt === undefined) {
-      element.textContent = gameboard.currentPlayer.getName();
+      playerprompt.textContent =
+        gameboard.currentPlayer.getName() +
+        " - '" +
+        gameboard.currentPlayer.getSymbol() +
+        "'";
     } else {
-      element.textContent = prompt;
+      status.textContent = prompt;
+      playerprompt = null;
     }
   }
 
