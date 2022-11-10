@@ -35,6 +35,13 @@ const displaycontroller = (() => {
     });
   }
 
+  function toggleStatus() {
+    var element = document.getElementById("status");
+    if (element.classList.contains("invisible")) {
+      element.classList.toggle("invisible");
+    }
+  }
+
   function drawgrid(grid) {
     gameboard_div.forEach((element) => {
       element.textContent = grid[element.dataset.grid];
@@ -44,6 +51,7 @@ const displaycontroller = (() => {
   return {
     drawgrid,
     activeGrid,
+    toggleStatus,
     activeStatus,
     currentState,
   };
@@ -56,6 +64,7 @@ left_button.onclick = function () {
   displaycontroller.activeGrid();
   displaycontroller.drawgrid(gameboard.currentgrid);
   left_button.textContent = "Reset";
+  displaycontroller.toggleStatus();
 };
 
 /* Draw the landing grid */

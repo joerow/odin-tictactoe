@@ -9,15 +9,23 @@
   height: 90vh;
 }
 
-#title {
+.title {
   display: grid;
   grid-column: 1 / span 3;
   align-self: center;
   justify-self: center;
+  text-decoration: none;
+  color: black;
+}
+.title a:hover,
+a:visited,
+a:link,
+a:active {
+  text-decoration: none;
 }
 
 .invisible {
-  visibility: visible;
+  visibility: hidden;
 }
 
 .game_status {
