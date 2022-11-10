@@ -2,6 +2,7 @@
 const gameboard = (() => {
   let dummygrid = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
   let currentgrid = ["", "", "", "", "", "", "", "", ""];
+  let currentPlayer = null;
   function update(playerSymbol, index) {
     gameboard.currentgrid[index] = playerSymbol;
   }
@@ -10,32 +11,48 @@ const gameboard = (() => {
     this.currentgrid = ["", "", "", "", "", "", "", "", ""];
   }
 
+  function togglePlayer() {
+    if (gameboard.currentPlayer === player1) {
+      gameboard.currentPlayer = player2;
+      console.log(gameboard.currentPlayer);
+    } else {
+      gameboard.currentPlayer = player1;
+    }
+  }
+
   return {
     dummygrid,
     currentgrid,
+    currentPlayer,
     update,
     resetgrid,
+    togglePlayer,
   };
 })();
 
 /* click grid detection */
 const gameboard_div = document.querySelectorAll(".gameboard-grid");
-
 //module to control the page
 const activeStatus = document.getElementById("#game_status");
 const currentState = document.getElementById("#state");
+
 const displaycontroller = (() => {
-  function activeGrid() {
+  function activateGrid() {
     gameboard_div.forEach((element) => {
       element.onclick = function () {
         //element.textContent = element.dataset.grid;
-        gameboard.update(element.dataset.grid, element.dataset.grid);
+        gameboard.update(
+          gameboard.currentPlayer.getSymbol(),
+          element.dataset.grid
+        );
         displaycontroller.drawgrid(gameboard.currentgrid);
+        gameboard.togglePlayer();
+        setPlayerPrompt();
       };
     });
   }
 
-  function toggleStatus() {
+  function toggleStatusVisibility() {
     var element = document.getElementById("status");
     if (element.classList.contains("invisible")) {
       element.classList.toggle("invisible");
@@ -48,37 +65,47 @@ const displaycontroller = (() => {
     });
   }
 
+  function setPlayerPrompt() {
+    const element = document.getElementById("player-prompt");
+    element.textContent = gameboard.currentPlayer.getName();
+  }
+
   return {
     drawgrid,
-    activeGrid,
-    toggleStatus,
+    activateGrid,
+    toggleStatusVisibility,
     activeStatus,
     currentState,
+    setPlayerPrompt,
   };
 })();
-
-/* buttons */
-const left_button = document.querySelector("#left-button");
-left_button.onclick = function () {
-  gameboard.resetgrid();
-  displaycontroller.activeGrid();
-  displaycontroller.drawgrid(gameboard.currentgrid);
-  left_button.textContent = "Reset";
-  displaycontroller.toggleStatus();
-};
 
 /* Draw the landing grid */
 displaycontroller.drawgrid(gameboard.dummygrid);
 
 /* factory to make players */
 const Player = (name, playerSymbol) => {
-  const getSymbol = () => playerSymbol;
-  const getName = () => name;
+  let pName = name;
+  let pSymbol = playerSymbol;
+  const getSymbol = () => pSymbol;
+  const getName = () => pName;
   return { getSymbol, getName };
 };
 const player1 = Player("Player 1", "X");
 const player2 = Player("Player 2", "O");
 
+/* New Game */
+const left_button = document.querySelector("#left-button");
+left_button.onclick = function () {
+  gameboard.resetgrid();
+  displaycontroller.activateGrid();
+  displaycontroller.drawgrid(gameboard.currentgrid);
+  left_button.textContent = "Reset";
+  displaycontroller.toggleStatusVisibility();
+  //set current player to player 1
+  gameboard.currentPlayer = player1;
+  displaycontroller.setPlayerPrompt();
+};
 /*  */
 
 // const myTimeout = setTimeout(blankgrid, 500);
