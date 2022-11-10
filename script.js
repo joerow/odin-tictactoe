@@ -41,13 +41,15 @@ const displaycontroller = (() => {
     gameboard_div.forEach((element) => {
       element.onclick = function () {
         //element.textContent = element.dataset.grid;
-        gameboard.update(
-          gameboard.currentPlayer.getSymbol(),
-          element.dataset.grid
-        );
-        displaycontroller.drawgrid(gameboard.currentgrid);
-        gameboard.togglePlayer();
-        setPlayerPrompt();
+        if (element.textContent === "") {
+          gameboard.update(
+            gameboard.currentPlayer.getSymbol(),
+            element.dataset.grid
+          );
+          displaycontroller.drawgrid(gameboard.currentgrid);
+          gameboard.togglePlayer();
+          setPlayerPrompt();
+        }
       };
     });
   }
