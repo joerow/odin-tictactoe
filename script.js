@@ -38,27 +38,27 @@ TODO win conditions
       return true;
     } else if (
       gameboard.currentgrid[1] === gameboard.currentgrid[4] &&
-      gameboard.currentgrid[7]
+      gameboard.currentgrid[1] === gameboard.currentgrid[7]
     ) {
       return true;
     } else if (
       gameboard.currentgrid[2] === gameboard.currentgrid[5] &&
-      gameboard.currentgrid[8]
+      gameboard.currentgrid[2] === gameboard.currentgrid[8]
     ) {
       return true;
     } else if (
       gameboard.currentgrid[0] === gameboard.currentgrid[1] &&
-      gameboard.currentgrid[2]
+      gameboard.currentgrid[0] === gameboard.currentgrid[2]
     ) {
       return true;
     } else if (
       gameboard.currentgrid[3] === gameboard.currentgrid[4] &&
-      gameboard.currentgrid[5]
+      gameboard.currentgrid[3] === gameboard.currentgrid[5]
     ) {
       return true;
     } else if (
       gameboard.currentgrid[6] === gameboard.currentgrid[7] &&
-      gameboard.currentgrid[8]
+      gameboard.currentgrid[6] === gameboard.currentgrid[8]
     ) {
       return true;
     } else if (
@@ -68,7 +68,7 @@ TODO win conditions
       return true;
     } else if (
       gameboard.currentgrid[6] === gameboard.currentgrid[4] &&
-      gameboard.currentgrid[2]
+      gameboard.currentgrid[6] === gameboard.currentgrid[2]
     ) {
       return true;
     } else {
