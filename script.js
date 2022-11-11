@@ -63,7 +63,7 @@ TODO win conditions
       return true;
     } else if (
       gameboard.currentgrid[0] === gameboard.currentgrid[4] &&
-      gameboard.currentgrid[8]
+      gameboard.currentgrid[0] === gameboard.currentgrid[8]
     ) {
       return true;
     } else if (
