@@ -168,7 +168,7 @@ const displaycontroller = (() => {
         "'";
     } else {
       status.textContent = prompt;
-      playerprompt = null;
+      playerprompt = "";
     }
   }
 
