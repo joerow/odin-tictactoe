@@ -86,7 +86,6 @@ TODO win conditions
   function check() {
     if (checkWon() === true) {
       left_button.textContent = "Play again";
-      displaycontroller.deactivateGrid();
       return "winner";
     } else {
       return checkPlayable();
@@ -138,14 +137,17 @@ const displaycontroller = (() => {
             setPlayerPrompt();
           } else if (gameboard.check() === "winner") {
             setPlayerPrompt(gameboard.currentPlayer.getName() + " wins");
+            displaycontroller.deactivateGrid();
           } else {
             setPlayerPrompt("Game Over - board full");
+            displaycontroller.deactivateGrid();
           }
         }
       };
     });
   }
 
+  //TODO turn this into a toggleable class instead so as not to break. Need to toggle it off again when activateGrid
   function deactivateGrid() {
     gameboard_div.forEach((element) => {
       element.style = "pointer-events:none;";
