@@ -85,6 +85,7 @@ TODO win conditions
   }
   function check() {
     if (checkWon() === true) {
+      left_button.textContent = "Play again";
       return "winner";
     } else {
       return checkPlayable();
@@ -167,8 +168,9 @@ const displaycontroller = (() => {
         gameboard.currentPlayer.getSymbol() +
         "'";
     } else {
-      status.textContent = prompt;
-      playerprompt = "";
+      status.innerHTML = '<div id="player-prompt"></div>';
+      let playerprompt = document.getElementById("player-prompt");
+      playerprompt.textContent = prompt;
     }
   }
 
