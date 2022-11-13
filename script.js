@@ -28,7 +28,6 @@ const gameboard = (() => {
 
     wins are:
     036 147 258 012 345 678 048 642
-TODO win conditions
  */
   function checkWon() {
     if (
@@ -203,7 +202,14 @@ const Player = (name, playerSymbol) => {
   let pSymbol = playerSymbol;
   const getSymbol = () => pSymbol;
   const getName = () => pName;
-  return { getSymbol, getName };
+  //TODO implement this setName function into the form modal.
+  function setName(newName) {
+    if (newName === "") {
+    } else {
+      pName = newName;
+    }
+  }
+  return { getSymbol, getName, setName };
 };
 const player1 = Player("Player 1", "X");
 const player2 = Player("Player 2", "O");
@@ -220,30 +226,31 @@ left_button.onclick = function () {
   gameboard.currentPlayer = player1;
   displaycontroller.setPlayerPrompt();
 };
-/*  */
 
-// const myTimeout = setTimeout(blankgrid, 500);
-// function blankgrid() {
-//   displaycontroller.fillgrid(gameboard.blankgrid);
-// }
-// //factory function
-// const Player = (name) => {
-//   const sayName = () => console.log(`my name is ${name}`);
-//   return { sayName };
-// };
+//TODO get the form to submit the new names and start the game.
+/* Modal */
+// Get the modal
+var modal = document.getElementById("myModal");
 
-// const player1 = Player("Player 1");
-// player1.sayName();
+// Get the button that opens the modal
+var btn = document.getElementById("myBtn");
 
-// const player2 = Player("Player 2");
-// player2.sayName();
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
 
-// const Nerd = (name) => {
-//   // simply create a person and pull out the sayName function with destructuring assignment syntax!
-//   const {sayName} = Person(name);
-//   const doSomethingNerdy = () => console.log('nerd stuff');
-//   return {sayName, doSomethingNerdy};
-// }
-// const jeff = Nerd('jeff');
-// jeff.sayName(); //my name is jeff
-// jeff.doSomethingNerdy(); // nerd stuff
+// When the user clicks on the button, open the modal
+btn.onclick = function () {
+  modal.style.display = "block";
+};
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function () {
+  modal.style.display = "none";
+};
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function (event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+};

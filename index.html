@@ -11,7 +11,7 @@
     <div class="container">
       <div class="title"><a href="./index.html"> Tic-Tac-Toe</a></div>
       <button id="left-button">New Game</button>
-      <button id="middle-button">middle button</button>
+      <button id="myBtn">Enter Names</button>
       <button id="right-button">right button</button>
       <div class="game_turn invisible" id="status">
         Turn:&nbsp
@@ -26,6 +26,28 @@
       <div class="gameboard-grid" data-grid="6"></div>
       <div class="gameboard-grid" data-grid="7"></div>
       <div class="gameboard-grid" data-grid="8"></div>
+      <!-- The Modal -->
+      <div id="myModal" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <form action="" method="post" id="newPlayers">
+            <div>
+              <label for="p1Name">Player 1's name: </label
+              ><input type="text" name="p1Name" id="p1Name" value="Player 1" />
+            </div>
+            <div>
+              <label for="p2Name"
+                >Player 2's name:
+                <input type="text" name="p2Name" id="p2Name" value="Player 2" />
+              </label>
+            </div>
+            <label for="submit">
+              <input type="button" value="Submit" id="newSubmit" />
+            </label>
+          </form>
+        </div>
+      </div>
     </div>
   </body>
   <script src="./script.js"></script>
