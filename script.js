@@ -86,6 +86,7 @@ TODO win conditions
   function check() {
     if (checkWon() === true) {
       left_button.textContent = "Play again";
+      displaycontroller.deactivateGrid();
       return "winner";
     } else {
       return checkPlayable();
@@ -145,6 +146,12 @@ const displaycontroller = (() => {
     });
   }
 
+  function deactivateGrid() {
+    gameboard_div.forEach((element) => {
+      element.style = "pointer-events:none;";
+    });
+  }
+
   function toggleStatusVisibility() {
     var element = document.getElementById("status");
     if (element.classList.contains("invisible")) {
@@ -181,6 +188,7 @@ const displaycontroller = (() => {
     activeStatus,
     currentState,
     setPlayerPrompt,
+    deactivateGrid,
   };
 })();
 
