@@ -146,10 +146,11 @@ const displaycontroller = (() => {
     });
   }
 
-  //TODO turn this into a toggleable class instead so as not to break. Need to toggle it off again when activateGrid
   function deactivateGrid() {
     gameboard_div.forEach((element) => {
-      element.style = "pointer-events:none;";
+      if (element.classList.contains(".deactivated-grid")) {
+        element.classList.toggle(".deactivated-grid");
+      }
     });
   }
 
@@ -202,7 +203,6 @@ const Player = (name, playerSymbol) => {
   let pSymbol = playerSymbol;
   const getSymbol = () => pSymbol;
   const getName = () => pName;
-  //TODO implement this setName function into the form modal.
   function setName(newName) {
     if (newName === "") {
     } else {
