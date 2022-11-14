@@ -9,7 +9,7 @@ body {
     );
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: clamp(10vh, 90vh, 90vh);
 }
 
 .title {
@@ -51,10 +51,6 @@ button {
 }
 
 #middle-button {
-  visibility: hidden;
-}
-
-#right-button {
   visibility: hidden;
 }
 

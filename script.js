@@ -101,6 +101,23 @@ const gameboard = (() => {
     }
   }
 
+  // change the ai
+  function toggleAi() {
+    if (aiButton.dataset.ai == "noai") {
+      aiButton.dataset.ai = "simple";
+      aiButton.textContent = "AI Toggle: Simple";
+      return;
+    } else if (aiButton.dataset.ai == "simple") {
+      aiButton.dataset.ai = "impossible";
+      aiButton.textContent = "AI Toggle: Impossible";
+      return;
+    } else if (aiButton.dataset.ai == "impossible") {
+      aiButton.dataset.ai = "noai";
+      aiButton.textContent = "AI Toggle: None";
+      return;
+    }
+  }
+
   return {
     dummygrid,
     currentgrid,
@@ -111,6 +128,7 @@ const gameboard = (() => {
     check,
     checkPlayable,
     checkWon,
+    toggleAi,
   };
 })();
 
@@ -225,9 +243,14 @@ left_button.onclick = function () {
   displaycontroller.setPlayerPrompt();
 };
 
+//AI toggler
+const aiButton = document.querySelector("#AI-button");
+aiButton.onclick = function () {
+  gameboard.toggleAi();
+};
+
 /* Submit button inserts the name into the players*/
 var submitBtn = document.getElementById("newSubmit");
-
 submitBtn.onclick = function () {
   var p1Name = document.getElementById("p1Name");
   var p2Name = document.getElementById("p2Name");
