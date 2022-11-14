@@ -238,7 +238,6 @@ submitBtn.onclick = function () {
   player2.setName(p2Name.value);
 };
 
-//TODO get the form to submit the new names and start the game.
 /* Modal */
 // Get the modal
 var modal = document.getElementById("myModal");
