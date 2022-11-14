@@ -227,6 +227,17 @@ left_button.onclick = function () {
   displaycontroller.setPlayerPrompt();
 };
 
+/* Submit button inserts the name into the players*/
+var submitBtn = document.getElementById("newSubmit");
+
+submitBtn.onclick = function () {
+  var p1Name = document.getElementById("p1Name");
+  var p2Name = document.getElementById("p2Name");
+  modal.style.display = "none";
+  player1.setName(p1Name.value);
+  player2.setName(p2Name.value);
+};
+
 //TODO get the form to submit the new names and start the game.
 /* Modal */
 // Get the modal
