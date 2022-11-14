@@ -135,7 +135,7 @@ const displaycontroller = (() => {
             gameboard.togglePlayer();
             setPlayerPrompt();
           } else if (gameboard.check() === "winner") {
-            setPlayerPrompt(gameboard.currentPlayer.getName() + " wins");
+            setPlayerPrompt(gameboard.currentPlayer.getName() + " wins!");
             displaycontroller.deactivateGrid();
           } else {
             setPlayerPrompt("Game Over - board full");
@@ -148,9 +148,7 @@ const displaycontroller = (() => {
 
   function deactivateGrid() {
     gameboard_div.forEach((element) => {
-      if (element.classList.contains(".deactivated-grid")) {
-        element.classList.toggle(".deactivated-grid");
-      }
+      element.onclick = null;
     });
   }
 
