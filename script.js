@@ -47,10 +47,16 @@ const gameboard = (() => {
       gameboard.currentPlayer.getSymbol(),
       possibleMoves[randomMove]
     );
-
     displaycontroller.drawgrid(gameboard.currentgrid);
-    check();
-    togglePlayer();
+    if (gameboard.check() === "winner") {
+      console.log("AI WON");
+      displaycontroller.setPlayerPrompt(
+        gameboard.currentPlayer.getName() + " wins!"
+      );
+      displaycontroller.deactivateGrid();
+    } else {
+      togglePlayer();
+    }
   }
 
   function update(playerSymbol, index) {
@@ -214,7 +220,9 @@ const displaycontroller = (() => {
           displaycontroller.drawgrid(gameboard.currentgrid);
           if (gameboard.check() === "playable") {
             gameboard.togglePlayer();
-            setPlayerPrompt();
+            if (gameboard.currentPlayer.getName() !== "AI: simple") {
+              setPlayerPrompt();
+            }
           } else if (gameboard.check() === "winner") {
             setPlayerPrompt(gameboard.currentPlayer.getName() + " wins!");
             displaycontroller.deactivateGrid();
