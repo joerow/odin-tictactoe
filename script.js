@@ -38,11 +38,19 @@ const gameboard = (() => {
   function simpleAI() {
     //get possible moves
     let possibleMoves = getPossible();
-    console.log(possibleMoves);
+    console.log("possible moves are " + possibleMoves);
     //select move to make
     const randomMove = Math.floor(Math.random() * possibleMoves.length);
-    console.log(randomMove, possibleMoves[randomMove]);
+    console.log("AI selected " + possibleMoves[randomMove]);
     //play move
+    gameboard.update(
+      gameboard.currentPlayer.getSymbol(),
+      possibleMoves[randomMove]
+    );
+
+    displaycontroller.drawgrid(gameboard.currentgrid);
+    check();
+    togglePlayer();
   }
 
   function update(playerSymbol, index) {
@@ -57,6 +65,9 @@ const gameboard = (() => {
     if (gameboard.currentPlayer === player1) {
       gameboard.currentPlayer = player2;
       console.log(gameboard.currentPlayer.getName());
+      if (gameboard.currentPlayer.getName() === "AI: simple") {
+        gameboard.simpleAI();
+      }
     } else {
       gameboard.currentPlayer = player1;
     }
@@ -138,7 +149,6 @@ const gameboard = (() => {
   function checkPlayable() {
     if (gameboard.currentgrid.includes("")) {
       console.log("still playable");
-      simpleAI();
       return "playable";
     } else {
       return;
@@ -152,6 +162,12 @@ const gameboard = (() => {
       aiButton.textContent = "AI Toggle: Simple";
       return;
     } else if (aiButton.dataset.ai == "simple") {
+      aiButton.dataset.ai = "noai";
+      aiButton.textContent = "AI Toggle: None";
+      return;
+    }
+
+    /* else if (aiButton.dataset.ai == "simple") {
       aiButton.dataset.ai = "impossible";
       aiButton.textContent = "AI Toggle: Impossible";
       return;
@@ -159,7 +175,7 @@ const gameboard = (() => {
       aiButton.dataset.ai = "noai";
       aiButton.textContent = "AI Toggle: None";
       return;
-    }
+    } */
   }
 
   return {
