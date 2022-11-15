@@ -3,7 +3,7 @@ body {
 }
 .container {
   display: grid;
-  grid-template: 5rem 2rem 2rem repeat(3, clamp(50px, 30vw, 200px)) / repeat(
+  grid-template: 5rem 4rem 2rem repeat(3, clamp(50px, 30vw, 200px)) / repeat(
       3,
       clamp(50px, 30vw, 200px)
     );
@@ -44,7 +44,7 @@ a:active {
 }
 
 button {
-  height: fit-content;
+  height: 4rem;
   width: clamp(50px, 20vw, 150px);
   align-self: center;
   justify-self: center;

@@ -3,6 +3,24 @@ const gameboard = (() => {
   let dummygrid = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
   let currentgrid = ["", "", "", "", "", "", "", "", ""];
   let currentPlayer = null;
+
+  function newGame() {
+    let aiSetting = aiButton.dataset.ai;
+    if (aiSetting != "noai") {
+      player2.setName("AI: " + aiSetting);
+    }
+    gameboard.resetgrid();
+    displaycontroller.activateGrid();
+    displaycontroller.drawgrid(gameboard.currentgrid);
+    displaycontroller.toggleStatusVisibility();
+    gameboard.currentPlayer = player1;
+    displaycontroller.setPlayerPrompt();
+  }
+
+  function aiTurn(Setting) {
+    let setting = aiButton.dataset.ai;
+  }
+
   function update(playerSymbol, index) {
     gameboard.currentgrid[index] = playerSymbol;
   }
@@ -82,6 +100,7 @@ const gameboard = (() => {
       return false;
     }
   }
+
   function check() {
     if (checkWon() === true) {
       left_button.textContent = "Play again";
@@ -106,14 +125,17 @@ const gameboard = (() => {
     if (aiButton.dataset.ai == "noai") {
       aiButton.dataset.ai = "simple";
       aiButton.textContent = "AI Toggle: Simple";
+      gameboard.newGame();
       return;
     } else if (aiButton.dataset.ai == "simple") {
       aiButton.dataset.ai = "impossible";
       aiButton.textContent = "AI Toggle: Impossible";
+      gameboard.newGame();
       return;
     } else if (aiButton.dataset.ai == "impossible") {
       aiButton.dataset.ai = "noai";
       aiButton.textContent = "AI Toggle: None";
+      gameboard.newGame();
       return;
     }
   }
@@ -129,6 +151,7 @@ const gameboard = (() => {
     checkPlayable,
     checkWon,
     toggleAi,
+    newGame,
   };
 })();
 
@@ -233,14 +256,8 @@ const player2 = Player("Player 2", "O");
 /* New Game */
 const left_button = document.querySelector("#left-button");
 left_button.onclick = function () {
-  gameboard.resetgrid();
-  displaycontroller.activateGrid();
-  displaycontroller.drawgrid(gameboard.currentgrid);
+  gameboard.newGame();
   left_button.textContent = "Reset";
-  displaycontroller.toggleStatusVisibility();
-  //set current player to player 1
-  gameboard.currentPlayer = player1;
-  displaycontroller.setPlayerPrompt();
 };
 
 //AI toggler
@@ -257,6 +274,7 @@ submitBtn.onclick = function () {
   modal.style.display = "none";
   player1.setName(p1Name.value);
   player2.setName(p2Name.value);
+  gameboard.newGame();
 };
 
 /* Modal */
