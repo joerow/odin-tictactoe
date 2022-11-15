@@ -1,13 +1,16 @@
 //module to control grid state
 const gameboard = (() => {
   let dummygrid = ["T", "I", "C", "T", "A", "C", "T", "O", "E"];
-  let currentgrid = ["", "", "", "", "", "", "", "", ""];
+  let currentgrid = null;
   let currentPlayer = null;
+  let aiSetting = null;
 
   function newGame() {
-    let aiSetting = aiButton.dataset.ai;
+    aiSetting = aiButton.dataset.ai;
     if (aiSetting != "noai") {
       player2.setName("AI: " + aiSetting);
+    } else {
+      player2.setName("Player 2");
     }
     gameboard.resetgrid();
     displaycontroller.activateGrid();
@@ -15,10 +18,31 @@ const gameboard = (() => {
     displaycontroller.toggleStatusVisibility();
     gameboard.currentPlayer = player1;
     displaycontroller.setPlayerPrompt();
+    console.log(getPossible());
   }
 
   function aiTurn(Setting) {
     let setting = aiButton.dataset.ai;
+  }
+
+  function getPossible() {
+    let possiblemoves = [];
+    for (const key in gameboard.currentgrid) {
+      if (gameboard.currentgrid[key] === "") {
+        possiblemoves.push(key);
+      }
+    }
+    return possiblemoves;
+  }
+
+  function simpleAI() {
+    //get possible moves
+    let possibleMoves = getPossible();
+    console.log(possibleMoves);
+    //select move to make
+    const randomMove = Math.floor(Math.random() * possibleMoves.length);
+    console.log(randomMove, possibleMoves[randomMove]);
+    //play move
   }
 
   function update(playerSymbol, index) {
@@ -32,7 +56,7 @@ const gameboard = (() => {
   function togglePlayer() {
     if (gameboard.currentPlayer === player1) {
       gameboard.currentPlayer = player2;
-      console.log(gameboard.currentPlayer);
+      console.log(gameboard.currentPlayer.getName());
     } else {
       gameboard.currentPlayer = player1;
     }
@@ -114,6 +138,7 @@ const gameboard = (() => {
   function checkPlayable() {
     if (gameboard.currentgrid.includes("")) {
       console.log("still playable");
+      simpleAI();
       return "playable";
     } else {
       return;
@@ -125,17 +150,14 @@ const gameboard = (() => {
     if (aiButton.dataset.ai == "noai") {
       aiButton.dataset.ai = "simple";
       aiButton.textContent = "AI Toggle: Simple";
-      gameboard.newGame();
       return;
     } else if (aiButton.dataset.ai == "simple") {
       aiButton.dataset.ai = "impossible";
       aiButton.textContent = "AI Toggle: Impossible";
-      gameboard.newGame();
       return;
     } else if (aiButton.dataset.ai == "impossible") {
       aiButton.dataset.ai = "noai";
       aiButton.textContent = "AI Toggle: None";
-      gameboard.newGame();
       return;
     }
   }
@@ -152,6 +174,8 @@ const gameboard = (() => {
     checkWon,
     toggleAi,
     newGame,
+    getPossible,
+    simpleAI,
   };
 })();
 
@@ -264,6 +288,7 @@ left_button.onclick = function () {
 const aiButton = document.querySelector("#AI-button");
 aiButton.onclick = function () {
   gameboard.toggleAi();
+  gameboard.newGame();
 };
 
 /* Submit button inserts the name into the players*/
